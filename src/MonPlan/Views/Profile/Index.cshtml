@@ -1,0 +1,3 @@
+@model ProfilViewModel
+@{ ViewData["Title"] = "Mon profil"; }
+<h1>Mon profil</h1><p>@ViewData["Message"]</p><form method="post"><div asp-validation-summary="All"></div><label>Email <input asp-for="Email" readonly /></label><label>Prénom <input asp-for="Prenom" /></label><label>Nom <input asp-for="Nom" /></label><label>Fuseau horaire <input asp-for="FuseauHoraire" /></label><button type="submit">Enregistrer</button></form>
