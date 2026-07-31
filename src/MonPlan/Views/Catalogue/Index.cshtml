@@ -1,0 +1,28 @@
+@model RechercheCatalogueViewModel
+@{ ViewData["Title"] = "Catalogue"; }
+<div class="page-heading"><div><p class="eyebrow">Catalogue interne</p><h1>Épreuves sportives</h1><p>Trouve une épreuve fictive de démonstration et ajoute-la à ta saison.</p></div></div>
+<form method="get" class="filters">
+    <div><label asp-for="Texte"></label><input asp-for="Texte" placeholder="Manifestation, épreuve ou format" /></div>
+    <div><label asp-for="Ville"></label><input asp-for="Ville" /></div>
+    <div><label asp-for="Discipline"></label><select asp-for="Discipline" asp-items="Html.GetEnumSelectList<DisciplineSportive>()"><option value="">Toutes</option></select></div>
+    <div><label asp-for="DateDebut"></label><input asp-for="DateDebut" /></div>
+    <div><label asp-for="DateFin"></label><input asp-for="DateFin" /></div>
+    <div class="filter-actions"><button type="submit">Rechercher</button><a asp-action="Index" class="button secondary">Réinitialiser</a></div>
+</form>
+@if (Model.Resultats.Count == 0)
+{ <div class="empty-state"><h2>Aucun résultat</h2><p>Aucune épreuve ne correspond à votre recherche.</p></div> }
+else
+{
+    <div class="event-grid">
+    @foreach (var item in Model.Resultats)
+    {
+        <article class="event-card">
+            <div class="event-meta"><span class="badge">@item.Discipline.Libelle()</span>@if(item.DateEpreuve >= DateOnly.FromDateTime(DateTime.Today)){<span class="badge future">À venir</span>}</div>
+            <p class="muted">@item.Manifestation</p><h2>@item.Nom</h2>
+            <dl><div><dt>Date</dt><dd>@item.DateEpreuve.ToString("d MMMM yyyy") @if(item.HeureDepart.HasValue){<span>à @item.HeureDepart.Value.ToString("HH:mm")</span>}</dd></div><div><dt>Lieu</dt><dd>@item.Ville</dd></div>@if(!string.IsNullOrWhiteSpace(item.Format)){<div><dt>Format</dt><dd>@item.Format</dd></div>}</dl>
+            @if(!string.IsNullOrWhiteSpace(item.DescriptionDistance)){<p>@item.DescriptionDistance</p>}
+            <div class="actions"><a asp-action="Details" asp-route-id="@item.Id" class="button secondary">Voir le détail</a><a asp-controller="Plan" asp-action="Ajouter" asp-route-epreuveId="@item.Id" class="button">Ajouter à mon plan</a></div>
+        </article>
+    }
+    </div>
+}

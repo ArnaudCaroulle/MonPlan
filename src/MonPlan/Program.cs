@@ -40,7 +40,11 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddScoped<ServiceEmail>();
 builder.Services.AddScoped<ServiceProfilUtilisateur>();
+builder.Services.AddScoped<ServiceCatalogueSportif>();
+builder.Services.AddScoped<ServiceSaisonSportive>();
+builder.Services.AddScoped<ServiceParticipationUtilisateur>();
 builder.Services.AddHostedService<ServiceInitialisationRoles>();
+builder.Services.AddHostedService<ServiceInitialisationDonneesDemo>();
 
 var app = builder.Build();
 

@@ -1,0 +1,11 @@
+@model EpreuveCatalogueViewModel
+@{ ViewData["Title"] = Model.Nom; }
+<a asp-action="Index" class="back-link">← Retour au catalogue</a>
+<article class="detail-card">
+    <div class="event-meta"><span class="badge">@Model.Discipline.Libelle()</span>@if(!string.IsNullOrWhiteSpace(Model.Format)){<span class="badge neutral">@Model.Format</span>}</div>
+    <p class="eyebrow">@Model.Manifestation</p><h1>@Model.Nom</h1>
+    <div class="detail-grid"><div><h2>Date et heure</h2><p>@Model.DateEpreuve.ToString("dddd d MMMM yyyy")</p><p>@(Model.HeureDepart?.ToString("HH:mm") ?? "Horaire non renseigné")</p></div><div><h2>Lieu</h2><p>@Model.Ville @Model.CodePostal</p><p>@Model.Pays</p></div></div>
+    @if(!string.IsNullOrWhiteSpace(Model.DescriptionDistance)){<h2>Distance</h2><p>@Model.DescriptionDistance</p>}
+    @if(!string.IsNullOrWhiteSpace(Model.DescriptionManifestation)){<h2>La manifestation</h2><p>@Model.DescriptionManifestation</p>}
+    <div class="actions"><a asp-controller="Plan" asp-action="Ajouter" asp-route-epreuveId="@Model.Id" class="button">Ajouter à mon plan</a>@if(!string.IsNullOrWhiteSpace(Model.UrlSiteOfficiel)){<a href="@Model.UrlSiteOfficiel" target="_blank" rel="noopener noreferrer" class="button secondary">Site officiel</a>}</div>
+</article>
