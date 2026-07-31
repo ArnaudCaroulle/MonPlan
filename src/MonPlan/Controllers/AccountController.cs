@@ -61,7 +61,7 @@ public class AccountController(UserManager<ApplicationUser> userManager, SignInM
     /// Affiche le formulaire de connexion.
     /// </summary>
     [HttpGet("connexion")]
-    public IActionResult Login() => View();
+    public IActionResult Login(string? returnUrl = null) => View(new ConnexionViewModel { ReturnUrl = returnUrl });
 
     /// <summary>
     /// Connecte l'utilisateur si l'email est confirmé et si les identifiants sont valides.
@@ -72,7 +72,10 @@ public class AccountController(UserManager<ApplicationUser> userManager, SignInM
     {
         if (!ModelState.IsValid) return View(model);
         var result = await signInManager.PasswordSignInAsync(model.Email, model.MotDePasse, model.SeSouvenirDeMoi, lockoutOnFailure: true);
-        if (result.Succeeded) return RedirectToAction("Index", "Profile");
+        if (result.Succeeded)
+            return !string.IsNullOrWhiteSpace(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl)
+                ? LocalRedirect(model.ReturnUrl)
+                : RedirectToAction("Index", "Profile");
         ModelState.AddModelError(string.Empty, "Connexion impossible. Vérifie ton email confirmé et ton mot de passe.");
         return View(model);
     }

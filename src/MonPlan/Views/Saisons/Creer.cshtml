@@ -1,0 +1,4 @@
+@model SaisonCreationViewModel
+@{ ViewData["Title"] = "Créer une saison"; }
+<a asp-action="Index" class="back-link">← Retour à mes saisons</a><h1>Créer une saison</h1><p>Choisis une période qui contient les dates des épreuves que tu souhaites planifier.</p>
+<form method="post" class="form-card"><div asp-validation-summary="ModelOnly" class="validation"></div><input type="hidden" asp-for="RetourEpreuveId" /><div><label asp-for="Nom"></label><input asp-for="Nom" /><span asp-validation-for="Nom" class="validation"></span></div><div class="form-row"><div><label asp-for="DateDebut"></label><input asp-for="DateDebut" /><span asp-validation-for="DateDebut" class="validation"></span></div><div><label asp-for="DateFin"></label><input asp-for="DateFin" /><span asp-validation-for="DateFin" class="validation"></span></div></div><button type="submit">Créer la saison</button></form>

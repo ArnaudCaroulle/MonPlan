@@ -18,5 +18,9 @@ public class ConfigurationTests
     {
         Assert.StartsWith("Service", nameof(ServiceEmail));
         Assert.StartsWith("Service", nameof(ServiceProfilUtilisateur));
+        Assert.StartsWith("Service", nameof(ServiceCatalogueSportif));
+        Assert.StartsWith("Service", nameof(ServiceSaisonSportive));
+        Assert.StartsWith("Service", nameof(ServiceParticipationUtilisateur));
+        Assert.StartsWith("Service", nameof(ServiceInitialisationDonneesDemo));
     }
 }

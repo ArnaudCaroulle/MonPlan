@@ -11,4 +11,7 @@ public class ApplicationUser : IdentityUser
     public string? Nom { get; set; }
     public string FuseauHoraire { get; set; } = "Europe/Paris";
     public DateTime DateCreationUtc { get; set; } = DateTime.UtcNow;
+
+    public ICollection<SaisonSportive> SaisonsSportives { get; set; } = [];
+    public ICollection<ParticipationUtilisateur> Participations { get; set; } = [];
 }

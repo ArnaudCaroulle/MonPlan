@@ -1,0 +1,10 @@
+@model AjouterParticipationViewModel
+@{ ViewData["Title"] = "Ajouter à mon plan"; }
+<a asp-controller="Catalogue" asp-action="Details" asp-route-id="@Model.EpreuveSportiveId" class="back-link">← Retour à l’épreuve</a><h1>Ajouter à mon plan</h1>
+<article class="event-summary"><p class="eyebrow">@Model.Manifestation</p><h2>@Model.Epreuve</h2><p>@Model.DateEpreuve.ToString("dddd d MMMM yyyy")</p></article>
+@if(Model.DejaAjoutee){<div class="alert warning">Cette épreuve est déjà présente dans ton plan. <a asp-action="Index">Consulter mon plan</a></div>}
+else if(Model.SaisonsCompatibles.Count == 0){<div class="empty-state"><h2>Aucune saison compatible</h2><p>Aucune de tes saisons ne contient la date de cette épreuve. Crée d’abord une saison adaptée.</p><a asp-controller="Saisons" asp-action="Creer" asp-route-retourEpreuveId="@Model.EpreuveSportiveId" class="button">Créer une saison adaptée</a></div>}
+else
+{
+<form method="post" class="form-card"><input type="hidden" asp-for="EpreuveSportiveId" /><div asp-validation-summary="ModelOnly" class="validation"></div><div><label asp-for="SaisonSportiveId"></label><select asp-for="SaisonSportiveId"><option value="">Choisir une saison</option>@foreach(var saison in Model.SaisonsCompatibles){<option value="@saison.Id">@saison.Nom</option>}</select><span asp-validation-for="SaisonSportiveId" class="validation"></span></div><fieldset><legend>Statut</legend>@foreach(var statut in Enum.GetValues<StatutParticipation>()){<label class="radio"><input type="radio" asp-for="StatutParticipation" value="@statut" /> @statut.Libelle()</label>}</fieldset><span asp-validation-for="StatutParticipation" class="validation"></span><button type="submit">Ajouter à mon plan</button></form>
+}
