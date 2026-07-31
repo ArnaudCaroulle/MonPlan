@@ -1,0 +1,4 @@
+@model ConnexionViewModel
+@{ ViewData["Title"] = "Connexion"; }
+<h1>Connexion</h1>
+<form method="post"><div asp-validation-summary="All"></div><label>Email <input asp-for="Email" /></label><label>Mot de passe <input asp-for="MotDePasse" /></label><label><input asp-for="SeSouvenirDeMoi" /> Se souvenir de moi</label><button type="submit">Me connecter</button></form><p><a asp-action="ForgotPassword">Mot de passe oublié ?</a></p>

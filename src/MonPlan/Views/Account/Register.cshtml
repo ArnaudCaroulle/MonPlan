@@ -1,0 +1,4 @@
+@model InscriptionViewModel
+@{ ViewData["Title"] = "Inscription"; }
+<h1>Créer mon compte</h1>
+<form method="post"><div asp-validation-summary="All"></div><label>Email <input asp-for="Email" /></label><label>Mot de passe <input asp-for="MotDePasse" /></label><label>Confirmation <input asp-for="ConfirmationMotDePasse" /></label><button type="submit">Créer le compte</button></form>
