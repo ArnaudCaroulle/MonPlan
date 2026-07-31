@@ -43,6 +43,8 @@ builder.Services.AddScoped<ServiceProfilUtilisateur>();
 builder.Services.AddScoped<ServiceCatalogueSportif>();
 builder.Services.AddScoped<ServiceSaisonSportive>();
 builder.Services.AddScoped<ServiceParticipationUtilisateur>();
+builder.Services.AddScoped<ServiceAdministrationManifestation>();
+builder.Services.AddScoped<ServiceAdministrationEpreuve>();
 builder.Services.AddHostedService<ServiceInitialisationRoles>();
 builder.Services.AddHostedService<ServiceInitialisationDonneesDemo>();
 

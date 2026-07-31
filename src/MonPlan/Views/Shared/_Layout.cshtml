@@ -16,6 +16,10 @@
             <a asp-controller="Catalogue" asp-action="Index">Catalogue</a>
             <a asp-controller="Saisons" asp-action="Index">Mes saisons</a>
             <a asp-controller="Plan" asp-action="Index">Mon plan</a>
+            @if (User.IsInRole("Administrateur"))
+            {
+                <a asp-controller="Administration" asp-action="Index">Administration</a>
+            }
             <a asp-controller="Profile" asp-action="Index">Mon profil</a>
             <form asp-controller="Account" asp-action="Logout" method="post"><button type="submit">Déconnexion</button></form>
         }

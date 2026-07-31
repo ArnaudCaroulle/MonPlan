@@ -53,13 +53,14 @@ public class ServiceParticipationUtilisateur(ApplicationDbContext contexte)
             .Select(p => new { p.SaisonSportiveId, Saison = p.SaisonSportive.Nom, p.Id, EpreuveId = p.EpreuveSportiveId,
                 p.EpreuveSportive.DateEpreuve, Manifestation = p.EpreuveSportive.ManifestationSportive.Nom,
                 Epreuve = p.EpreuveSportive.Nom, Ville = p.EpreuveSportive.ManifestationSportive.Ville,
-                p.EpreuveSportive.Discipline, p.EpreuveSportive.Format, Statut = p.StatutParticipation })
+                p.EpreuveSportive.Discipline, p.EpreuveSportive.Format, Statut = p.StatutParticipation,
+                EstDisponible = p.EpreuveSportive.EstActive && p.EpreuveSportive.ManifestationSportive.EstActive })
             .ToListAsync(cancellationToken);
         return elements.GroupBy(p => new { p.SaisonSportiveId, p.Saison }).Select(g => new PlanSaisonViewModel
         {
             SaisonId = g.Key.SaisonSportiveId, Nom = g.Key.Saison,
             Participations = g.Select(p => new ParticipationPlanViewModel { Id = p.Id, EpreuveId = p.EpreuveId, DateEpreuve = p.DateEpreuve,
-                Manifestation = p.Manifestation, Epreuve = p.Epreuve, Ville = p.Ville, Discipline = p.Discipline, Format = p.Format, Statut = p.Statut }).ToList()
+                Manifestation = p.Manifestation, Epreuve = p.Epreuve, Ville = p.Ville, Discipline = p.Discipline, Format = p.Format, Statut = p.Statut, EstDisponible = p.EstDisponible }).ToList()
         }).ToList();
     }
 

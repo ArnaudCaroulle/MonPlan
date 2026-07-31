@@ -7,6 +7,8 @@ namespace MonPlan.Services;
 /// </summary>
 public class ServiceInitialisationRoles(IServiceProvider services, ILogger<ServiceInitialisationRoles> logger) : IHostedService
 {
+    /// <summary>Expose la liste unique des rôles applicatifs initialisés, notamment le rôle protégé Administrateur.</summary>
+    public static readonly IReadOnlyList<string> RolesInitialises = ["Administrateur", "Utilisateur"];
     /// <summary>
     /// Crée les rôles de base si ceux-ci ne sont pas déjà présents en base de données.
     /// </summary>
@@ -14,7 +16,7 @@ public class ServiceInitialisationRoles(IServiceProvider services, ILogger<Servi
     {
         using var scope = services.CreateScope();
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-        foreach (var role in new[] { "Administrateur", "Utilisateur" })
+        foreach (var role in RolesInitialises)
         {
             if (!await roleManager.RoleExistsAsync(role))
             {

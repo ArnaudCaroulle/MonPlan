@@ -72,3 +72,13 @@ dotnet test MonPlan.sln
 ## Sécurité du dépôt public
 
 Ne jamais versionner de secrets SMTP, API, certificats privés, chaînes de connexion réelles ou données utilisateur.
+
+## Administration manuelle du catalogue
+
+Le back-office est accessible sous `/administration` uniquement aux comptes ayant le rôle Identity exact `Administrateur`. Il donne accès à `/administration/manifestations` et `/administration/epreuves`. Le catalogue est, à ce stade, alimenté **manuellement** : aucun import fédéral, scraping ou import de fichier n'est réalisé.
+
+Une manifestation est créée avec sa période, son lieu et ses informations publiques, puis une ou plusieurs épreuves peuvent lui être rattachées. La date de chaque épreuve doit appartenir à la période de sa manifestation. Les formulaires contrôlent ces règles à nouveau côté serveur.
+
+La désactivation conserve les données : une manifestation ou une épreuve inactive disparaît du catalogue public, mais une épreuve déjà ajoutée reste signalée comme indisponible dans le plan concerné. Une manifestation ne peut être supprimée que si elle ne contient aucune épreuve. Une épreuve ne peut être supprimée que si aucune participation utilisateur ne la référence ; dans les autres cas, il faut la désactiver.
+
+Pour attribuer le rôle localement, démarrer l'application en environnement `Development`, créer et confirmer le compte, puis associer dans les tables Identity existantes l'identifiant du compte à l'identifiant du rôle `Administrateur` dans `utilisateurs_roles` (les rôles sont initialisés au démarrage). Cette opération est réservée à une base locale maîtrisée. Aucun changement de schéma ni script SQL supplémentaire n'est nécessaire pour le back-office.
