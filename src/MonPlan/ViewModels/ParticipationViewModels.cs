@@ -39,6 +39,7 @@ public class ParticipationPlanViewModel
     public DisciplineSportive Discipline { get; set; }
     public string? Format { get; set; }
     public StatutParticipation Statut { get; set; }
+    public bool EstDisponible { get; set; }
 }
 
 public enum ResultatAjoutParticipation

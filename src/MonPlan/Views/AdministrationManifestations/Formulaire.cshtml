@@ -1,0 +1,8 @@
+@model FormulaireManifestationViewModel
+@{ var creation = Model.Id == 0; ViewData["Title"] = creation ? "Créer une manifestation" : "Modifier la manifestation"; }
+<div class="page-heading"><div><p class="eyebrow">Administration</p><h1>@ViewData["Title"]</h1></div></div>
+<form method="post" class="form-card"><div asp-validation-summary="ModelOnly" class="validation"></div>@if(!creation){<input asp-for="Id" type="hidden" />}
+<label asp-for="Nom"></label><input asp-for="Nom" /><span asp-validation-for="Nom"></span><label asp-for="Ville"></label><input asp-for="Ville" /><span asp-validation-for="Ville"></span>
+<div class="form-grid"><div><label asp-for="CodePostal"></label><input asp-for="CodePostal" /></div><div><label asp-for="Pays"></label><input asp-for="Pays" /><span asp-validation-for="Pays"></span></div></div>
+<div class="form-grid"><div><label asp-for="DateDebut"></label><input asp-for="DateDebut" type="date" /><span asp-validation-for="DateDebut"></span></div><div><label asp-for="DateFin"></label><input asp-for="DateFin" type="date" /><span asp-validation-for="DateFin"></span></div></div>
+<label asp-for="Description"></label><textarea asp-for="Description" rows="5"></textarea><label asp-for="UrlSiteOfficiel"></label><input asp-for="UrlSiteOfficiel" type="url" /><span asp-validation-for="UrlSiteOfficiel"></span><label class="check"><input asp-for="EstActive" /> Active</label><button class="button" type="submit">@(creation ? "Créer la manifestation" : "Enregistrer")</button></form>
